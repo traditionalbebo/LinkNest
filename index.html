@@ -30,7 +30,6 @@
   .btn-sm { padding: 6px 14px; font-size: 12px; }
 
   .layout { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 64px); }
-
   .sidebar { background: var(--surface); border-right: 1px solid var(--border); padding: 24px 16px; position: sticky; top: 64px; height: calc(100vh - 64px); overflow-y: auto; }
   .sidebar-label { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text3); padding: 0 10px; margin-bottom: 8px; }
   .folder-item { display: flex; align-items: center; justify-content: space-between; padding: 9px 10px; border-radius: var(--radius-sm); cursor: pointer; transition: all .15s; margin-bottom: 2px; gap: 8px; }
@@ -69,17 +68,15 @@
   .icon-btn.danger:hover { background: #ffeaea; color: #c0392b; }
   .folder-links-preview { display: flex; flex-direction: column; gap: 6px; }
   .link-preview-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text2); padding: 5px 8px; background: var(--surface2); border-radius: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .link-preview-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+  .link-preview-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
   .link-preview-more { font-size: 11px; color: var(--text3); padding: 4px 8px; text-align: center; }
 
   .links-section { display: none; }
   .links-section.visible { display: block; }
-  .folders-section { display: block; }
   .folders-section.hidden { display: none; }
 
   .back-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text2); cursor: pointer; margin-bottom: 20px; padding: 6px 0; background: none; border: none; font-family: 'DM Sans', sans-serif; transition: color .15s; }
   .back-btn:hover { color: var(--accent); }
-
   .links-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; gap: 12px; flex-wrap: wrap; }
   .search-input { font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 8px 14px 8px 36px; border: 1px solid var(--border); border-radius: 40px; background: var(--surface); color: var(--text); outline: none; width: 240px; transition: border .15s; }
   .search-input:focus { border-color: var(--accent); }
@@ -87,10 +84,15 @@
   .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text3); font-size: 13px; pointer-events: none; }
 
   .links-table { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-  .links-table-header { display: grid; grid-template-columns: 2fr 3fr 1fr 80px; padding: 10px 20px; background: var(--surface2); border-bottom: 1px solid var(--border); font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text3); gap: 16px; }
-  .link-row { display: grid; grid-template-columns: 2fr 3fr 1fr 80px; padding: 14px 20px; border-bottom: 1px solid var(--border); align-items: center; gap: 16px; transition: background .12s; }
+  .links-table-header { display: grid; grid-template-columns: 52px 2fr 2.5fr 1fr 100px; padding: 10px 20px; background: var(--surface2); border-bottom: 1px solid var(--border); font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text3); gap: 14px; align-items: center; }
+  .link-row { display: grid; grid-template-columns: 52px 2fr 2.5fr 1fr 100px; padding: 12px 20px; border-bottom: 1px solid var(--border); align-items: center; gap: 14px; transition: background .12s; }
   .link-row:last-child { border-bottom: none; }
   .link-row:hover { background: var(--surface2); }
+
+  .link-thumb { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border); display: block; }
+  .link-thumb-placeholder { width: 44px; height: 44px; border-radius: 8px; background: var(--surface2); border: 1.5px dashed var(--border); display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; transition: all .12s; }
+  .link-thumb-placeholder:hover { background: var(--accent-bg); border-color: var(--accent); }
+
   .link-name { font-size: 14px; font-weight: 500; color: var(--text); }
   .link-url { font-size: 12px; color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; text-decoration: none; display: block; }
   .link-url:hover { text-decoration: underline; }
@@ -104,7 +106,7 @@
 
   .modal-overlay { position: fixed; inset: 0; background: rgba(26,22,18,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 20px; opacity: 0; pointer-events: none; transition: opacity .2s; }
   .modal-overlay.open { opacity: 1; pointer-events: all; }
-  .modal { background: var(--surface); border-radius: var(--radius); padding: 28px; width: 100%; max-width: 460px; box-shadow: var(--shadow-lg); transform: translateY(12px); transition: transform .2s; }
+  .modal { background: var(--surface); border-radius: var(--radius); padding: 28px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-lg); transform: translateY(12px); transition: transform .2s; }
   .modal-overlay.open .modal { transform: translateY(0); }
   .modal-title { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--text); margin-bottom: 20px; }
   .form-group { margin-bottom: 16px; }
@@ -118,6 +120,18 @@
   .color-opt { width: 28px; height: 28px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; transition: all .12s; }
   .color-opt.selected { border-color: var(--text); transform: scale(1.1); }
   .modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
+
+  /* IMAGE UPLOAD */
+  .img-upload-area { border: 2px dashed var(--border); border-radius: var(--radius-sm); padding: 24px 20px; text-align: center; cursor: pointer; transition: all .15s; position: relative; background: var(--bg); }
+  .img-upload-area:hover { border-color: var(--accent); background: var(--accent-bg); }
+  .img-upload-area.has-image { border-style: solid; padding: 0; overflow: hidden; border-color: var(--border); }
+  .img-upload-area input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+  .img-upload-icon { font-size: 28px; margin-bottom: 8px; }
+  .img-upload-text { font-size: 13px; color: var(--text2); font-weight: 500; }
+  .img-upload-hint { font-size: 11px; color: var(--text3); margin-top: 4px; }
+  .img-preview { width: 100%; height: 180px; object-fit: cover; border-radius: calc(var(--radius-sm) - 2px); display: block; }
+  .img-remove { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; background: rgba(26,22,18,0.65); color: #fff; border: none; cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center; z-index: 2; transition: background .12s; }
+  .img-remove:hover { background: rgba(26,22,18,0.9); }
 
   .platform-meesho { background: #fde8f7; color: #8b1a6b; }
   .platform-nykaa { background: #ffedf2; color: #c4154a; }
@@ -142,7 +156,8 @@
     .stats-row { grid-template-columns: repeat(2, 1fr); }
     .folder-grid { grid-template-columns: 1fr; }
     .links-table-header { display: none; }
-    .link-row { grid-template-columns: 1fr 80px; }
+    .link-row { grid-template-columns: 44px 1fr 90px; }
+    .link-row > :nth-child(3), .link-row > :nth-child(4) { display: none; }
   }
 </style>
 </head>
@@ -259,7 +274,16 @@
 <!-- LINK MODAL -->
 <div class="modal-overlay" id="linkModal">
   <div class="modal">
-    <div class="modal-title">Add Product Link</div>
+    <div class="modal-title" id="linkModalTitle">Add Product Link</div>
+    <div class="form-group">
+      <label class="form-label">Product Image <span style="font-weight:400;color:var(--text3)">(optional — shown on public page)</span></label>
+      <div class="img-upload-area" id="imgUploadArea">
+        <input type="file" accept="image/*" id="imgFileInput" onchange="handleImageUpload(this)">
+        <div class="img-upload-icon">🖼️</div>
+        <div class="img-upload-text">Click to upload product photo</div>
+        <div class="img-upload-hint">JPG, PNG or WEBP · Max 2MB recommended</div>
+      </div>
+    </div>
     <div class="form-group">
       <label class="form-label">Product Name</label>
       <input type="text" class="form-input" id="linkName" placeholder="e.g. Nykaa Matte Lipstick — Shade 08">
@@ -280,12 +304,12 @@
       </select>
     </div>
     <div class="form-group">
-      <label class="form-label">Price (optional)</label>
+      <label class="form-label">Price <span style="font-weight:400;color:var(--text3)">(optional)</span></label>
       <input type="text" class="form-input" id="linkPrice" placeholder="e.g. ₹299">
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal('linkModal')">Cancel</button>
-      <button class="btn btn-primary" onclick="saveLink()">Add Link</button>
+      <button class="btn btn-primary" onclick="saveLink()">Save Link</button>
     </div>
   </div>
 </div>
@@ -294,31 +318,33 @@
 
 <script>
 let folders = JSON.parse(localStorage.getItem('linknest_folders') || '[]');
-let links = JSON.parse(localStorage.getItem('linknest_links') || '[]');
+let links   = JSON.parse(localStorage.getItem('linknest_links')   || '[]');
 let currentFolderId = null;
 let editingFolderId = null;
-let selectedEmoji = '💄';
-let selectedColor = '#c4603a';
+let editingLinkId   = null;
+let selectedEmoji   = '💄';
+let selectedColor   = '#c4603a';
+let currentImageB64 = null;
 
 if (folders.length === 0) {
   folders = [
-    { id: 'f1', name: 'Nykaa Makeup Finds', icon: '💄', color: '#c4154a' },
-    { id: 'f2', name: 'Meesho Earrings', icon: '💍', color: '#7a4fc4' },
-    { id: 'f3', name: 'Under ₹500 Picks', icon: '💰', color: '#3a7c5a' },
+    { id:'f1', name:'Nykaa Makeup Finds', icon:'💄', color:'#c4154a' },
+    { id:'f2', name:'Meesho Earrings',    icon:'💍', color:'#7a4fc4' },
+    { id:'f3', name:'Under ₹500 Picks',  icon:'💰', color:'#3a7c5a' },
   ];
   links = [
-    { id: 'l1', folderId: 'f1', name: 'Nykaa Matte Lipstick — Brick Red', url: 'https://nykaa.com', platform: 'nykaa', price: '₹249' },
-    { id: 'l2', folderId: 'f1', name: 'Nykaa Skin Rx Vitamin C Serum', url: 'https://nykaa.com', platform: 'nykaa', price: '₹399' },
-    { id: 'l3', folderId: 'f2', name: 'Oxidised Jhumka Earrings', url: 'https://meesho.com', platform: 'meesho', price: '₹149' },
-    { id: 'l4', folderId: 'f2', name: 'Pearl Drop Earrings — Gold', url: 'https://meesho.com', platform: 'meesho', price: '₹199' },
-    { id: 'l5', folderId: 'f3', name: 'Lakme Eyeconic Kajal', url: 'https://amazon.in', platform: 'amazon', price: '₹175' },
+    { id:'l1', folderId:'f1', name:'Nykaa Matte Lipstick — Brick Red', url:'https://nykaa.com',  platform:'nykaa',  price:'₹249', image:null },
+    { id:'l2', folderId:'f1', name:'Nykaa Skin Rx Vitamin C Serum',     url:'https://nykaa.com',  platform:'nykaa',  price:'₹399', image:null },
+    { id:'l3', folderId:'f2', name:'Oxidised Jhumka Earrings',          url:'https://meesho.com', platform:'meesho', price:'₹149', image:null },
+    { id:'l4', folderId:'f2', name:'Pearl Drop Earrings — Gold',        url:'https://meesho.com', platform:'meesho', price:'₹199', image:null },
+    { id:'l5', folderId:'f3', name:'Lakme Eyeconic Kajal',              url:'https://amazon.in',  platform:'amazon', price:'₹175', image:null },
   ];
   save();
 }
 
 function save() {
   localStorage.setItem('linknest_folders', JSON.stringify(folders));
-  localStorage.setItem('linknest_links', JSON.stringify(links));
+  localStorage.setItem('linknest_links',   JSON.stringify(links));
 }
 function uid() { return 'id_' + Date.now() + Math.random().toString(36).slice(2); }
 function getPlatformLabel(p) {
@@ -346,9 +372,15 @@ function renderFolderGrid() {
     return;
   }
   grid.innerHTML = folders.map(f => {
-    const fl = links.filter(l=>l.folderId===f.id);
-    const preview = fl.slice(0,2).map(l=>`<div class="link-preview-item"><div class="link-preview-dot" style="background:${f.color}"></div>${l.name}</div>`).join('');
-    const more = fl.length>2 ? `<div class="link-preview-more">+${fl.length-2} more</div>` : '';
+    const fl = links.filter(l => l.folderId === f.id);
+    const preview = fl.slice(0,2).map(l => `
+      <div class="link-preview-item">
+        ${l.image
+          ? `<img src="${l.image}" style="width:18px;height:18px;border-radius:4px;object-fit:cover;flex-shrink:0;">`
+          : `<div class="link-preview-dot" style="background:${f.color};"></div>`}
+        <span style="overflow:hidden;text-overflow:ellipsis;">${l.name}</span>
+      </div>`).join('');
+    const more = fl.length > 2 ? `<div class="link-preview-more">+${fl.length-2} more</div>` : '';
     return `<div class="folder-card" style="--folder-color:${f.color}" onclick="openFolder('${f.id}')">
       <div class="folder-card-actions" onclick="event.stopPropagation()">
         <button class="icon-btn" onclick="editFolder('${f.id}')">✏️</button>
@@ -365,19 +397,19 @@ function renderFolderGrid() {
 
 function updateStats() {
   document.getElementById('totalFolders').textContent = folders.length;
-  document.getElementById('totalLinks').textContent = links.length;
+  document.getElementById('totalLinks').textContent   = links.length;
   document.getElementById('totalPlatforms').textContent = new Set(links.map(l=>l.platform)).size;
 }
 
 function openFolder(id) {
   currentFolderId = id;
-  const f = folders.find(f=>f.id===id);
-  document.getElementById('currentFolderTitle').textContent = f.icon+' '+f.name;
-  document.getElementById('currentFolderMeta').textContent = links.filter(l=>l.folderId===id).length+' links';
+  const f = folders.find(f => f.id === id);
+  document.getElementById('currentFolderTitle').textContent = f.icon + ' ' + f.name;
+  document.getElementById('currentFolderMeta').textContent  = links.filter(l=>l.folderId===id).length + ' links';
   document.getElementById('foldersSection').classList.add('hidden');
   document.getElementById('linksSection').classList.add('visible');
   document.getElementById('linkSearch').value = '';
-  renderLinks(links.filter(l=>l.folderId===id));
+  renderLinks(links.filter(l => l.folderId === id));
   renderSidebar();
 }
 
@@ -391,7 +423,7 @@ function showFolders() {
 function showAllLinks() {
   currentFolderId = '__all__';
   document.getElementById('currentFolderTitle').textContent = '📋 All Links';
-  document.getElementById('currentFolderMeta').textContent = links.length+' links across all folders';
+  document.getElementById('currentFolderMeta').textContent  = links.length + ' links across all folders';
   document.getElementById('foldersSection').classList.add('hidden');
   document.getElementById('linksSection').classList.add('visible');
   document.getElementById('linkSearch').value = '';
@@ -405,42 +437,100 @@ function renderLinks(data) {
     return;
   }
   el.innerHTML = `<div class="links-table">
-    <div class="links-table-header"><div>Product</div><div>URL</div><div>Platform</div><div style="text-align:right;">Actions</div></div>
-    ${data.map(l=>`<div class="link-row">
-      <div><div class="link-name">${l.name}</div>${l.price?`<div style="font-size:11px;color:var(--text3);margin-top:2px;">${l.price}</div>`:''}</div>
-      <a class="link-url" href="${l.url}" target="_blank">${l.url}</a>
-      <div><span class="platform-badge platform-${l.platform}">${getPlatformLabel(l.platform)}</span></div>
-      <div class="link-actions">
-        <button class="icon-btn" onclick="copyLink('${l.url}')">📋</button>
-        <button class="icon-btn danger" onclick="deleteLink('${l.id}')">🗑️</button>
-      </div>
-    </div>`).join('')}
+    <div class="links-table-header">
+      <div>Image</div><div>Product</div><div>URL</div><div>Platform</div><div style="text-align:right;">Actions</div>
+    </div>
+    ${data.map(l => `
+      <div class="link-row">
+        <div>
+          ${l.image
+            ? `<img src="${l.image}" class="link-thumb" alt="${l.name}">`
+            : `<div class="link-thumb-placeholder" title="Click Edit to add image" onclick="openLinkModalForEdit('${l.id}')">📷</div>`}
+        </div>
+        <div>
+          <div class="link-name">${l.name}</div>
+          ${l.price ? `<div style="font-size:11px;color:var(--text3);margin-top:2px;">${l.price}</div>` : ''}
+        </div>
+        <a class="link-url" href="${l.url}" target="_blank">${l.url}</a>
+        <div><span class="platform-badge platform-${l.platform}">${getPlatformLabel(l.platform)}</span></div>
+        <div class="link-actions">
+          <button class="icon-btn" onclick="openLinkModalForEdit('${l.id}')" title="Edit">✏️</button>
+          <button class="icon-btn" onclick="copyLink('${l.url}')" title="Copy">📋</button>
+          <button class="icon-btn danger" onclick="deleteLink('${l.id}')" title="Delete">🗑️</button>
+        </div>
+      </div>`).join('')}
   </div>`;
 }
 
 function filterLinks(q) {
-  const base = currentFolderId==='__all__' ? links : links.filter(l=>l.folderId===currentFolderId);
-  renderLinks(base.filter(l=>l.name.toLowerCase().includes(q.toLowerCase())||l.url.toLowerCase().includes(q.toLowerCase())));
+  const base = currentFolderId === '__all__' ? links : links.filter(l => l.folderId === currentFolderId);
+  renderLinks(base.filter(l => l.name.toLowerCase().includes(q.toLowerCase()) || l.url.toLowerCase().includes(q.toLowerCase())));
 }
 
+/* ---- IMAGE UPLOAD ---- */
+function handleImageUpload(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    currentImageB64 = e.target.result;
+    const area = document.getElementById('imgUploadArea');
+    area.classList.add('has-image');
+    area.innerHTML = `
+      <img src="${currentImageB64}" class="img-preview" alt="Product preview">
+      <button class="img-remove" onclick="removeImage(event)" type="button">✕</button>`;
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeImage(e) {
+  e.stopPropagation();
+  currentImageB64 = null;
+  resetUploadArea();
+}
+
+function resetUploadArea() {
+  const area = document.getElementById('imgUploadArea');
+  area.classList.remove('has-image');
+  area.innerHTML = `
+    <input type="file" accept="image/*" id="imgFileInput" onchange="handleImageUpload(this)">
+    <div class="img-upload-icon">🖼️</div>
+    <div class="img-upload-text">Click to upload product photo</div>
+    <div class="img-upload-hint">JPG, PNG or WEBP · Max 2MB recommended</div>`;
+}
+
+function loadImageIntoUploadArea(imgData) {
+  currentImageB64 = imgData;
+  const area = document.getElementById('imgUploadArea');
+  if (imgData) {
+    area.classList.add('has-image');
+    area.innerHTML = `
+      <img src="${imgData}" class="img-preview" alt="Product preview">
+      <button class="img-remove" onclick="removeImage(event)" type="button">✕</button>`;
+  } else {
+    resetUploadArea();
+  }
+}
+
+/* ---- FOLDER MODAL ---- */
 function openFolderModal() {
   editingFolderId = null;
   document.getElementById('folderModalTitle').textContent = 'New Folder';
   document.getElementById('folderName').value = '';
   selectedEmoji = '💄'; selectedColor = '#c4603a';
-  document.querySelectorAll('.emoji-opt').forEach(e=>e.classList.toggle('selected',e.dataset.emoji===selectedEmoji));
-  document.querySelectorAll('.color-opt').forEach(c=>c.classList.toggle('selected',c.dataset.color===selectedColor));
+  document.querySelectorAll('.emoji-opt').forEach(e => e.classList.toggle('selected', e.dataset.emoji === selectedEmoji));
+  document.querySelectorAll('.color-opt').forEach(c => c.classList.toggle('selected', c.dataset.color === selectedColor));
   openModal('folderModal');
 }
 
 function editFolder(id) {
-  const f = folders.find(f=>f.id===id);
+  const f = folders.find(f => f.id === id);
   editingFolderId = id;
   document.getElementById('folderModalTitle').textContent = 'Edit Folder';
   document.getElementById('folderName').value = f.name;
   selectedEmoji = f.icon; selectedColor = f.color;
-  document.querySelectorAll('.emoji-opt').forEach(e=>e.classList.toggle('selected',e.dataset.emoji===selectedEmoji));
-  document.querySelectorAll('.color-opt').forEach(c=>c.classList.toggle('selected',c.dataset.color===selectedColor));
+  document.querySelectorAll('.emoji-opt').forEach(e => e.classList.toggle('selected', e.dataset.emoji === selectedEmoji));
+  document.querySelectorAll('.color-opt').forEach(c => c.classList.toggle('selected', c.dataset.color === selectedColor));
   openModal('folderModal');
 }
 
@@ -448,73 +538,101 @@ function saveFolder() {
   const name = document.getElementById('folderName').value.trim();
   if (!name) { showToast('Please enter a folder name'); return; }
   if (editingFolderId) {
-    const f = folders.find(f=>f.id===editingFolderId);
-    f.name=name; f.icon=selectedEmoji; f.color=selectedColor;
+    const f = folders.find(f => f.id === editingFolderId);
+    f.name = name; f.icon = selectedEmoji; f.color = selectedColor;
   } else {
     folders.push({ id:uid(), name, icon:selectedEmoji, color:selectedColor });
   }
   save(); closeModal('folderModal'); render();
-  showToast(editingFolderId?'Folder updated':'Folder created');
+  showToast(editingFolderId ? 'Folder updated' : 'Folder created');
 }
 
 function deleteFolder(id) {
   if (!confirm('Delete this folder and all its links?')) return;
-  folders = folders.filter(f=>f.id!==id);
-  links = links.filter(l=>l.folderId!==id);
+  folders = folders.filter(f => f.id !== id);
+  links   = links.filter(l => l.folderId !== id);
   save(); render(); showToast('Folder deleted');
 }
 
 function selectEmoji(el) {
-  document.querySelectorAll('.emoji-opt').forEach(e=>e.classList.remove('selected'));
+  document.querySelectorAll('.emoji-opt').forEach(e => e.classList.remove('selected'));
   el.classList.add('selected'); selectedEmoji = el.dataset.emoji;
 }
-
 function selectColor(el) {
-  document.querySelectorAll('.color-opt').forEach(c=>c.classList.remove('selected'));
+  document.querySelectorAll('.color-opt').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected'); selectedColor = el.dataset.color;
 }
 
+/* ---- LINK MODAL ---- */
 function openLinkModal() {
-  document.getElementById('linkName').value = '';
-  document.getElementById('linkUrl').value = '';
-  document.getElementById('linkPrice').value = '';
+  editingLinkId = null;
+  document.getElementById('linkModalTitle').textContent = 'Add Product Link';
+  document.getElementById('linkName').value     = '';
+  document.getElementById('linkUrl').value      = '';
+  document.getElementById('linkPrice').value    = '';
   document.getElementById('linkPlatform').value = 'nykaa';
+  loadImageIntoUploadArea(null);
+  openModal('linkModal');
+}
+
+function openLinkModalForEdit(id) {
+  const l = links.find(l => l.id === id);
+  editingLinkId = id;
+  document.getElementById('linkModalTitle').textContent = 'Edit Product Link';
+  document.getElementById('linkName').value     = l.name;
+  document.getElementById('linkUrl').value      = l.url;
+  document.getElementById('linkPrice').value    = l.price || '';
+  document.getElementById('linkPlatform').value = l.platform;
+  loadImageIntoUploadArea(l.image || null);
   openModal('linkModal');
 }
 
 function saveLink() {
   const name = document.getElementById('linkName').value.trim();
-  const url = document.getElementById('linkUrl').value.trim();
-  if (!name||!url) { showToast('Please fill in name and URL'); return; }
-  const folderId = currentFolderId==='__all__' ? (folders[0]?.id||null) : currentFolderId;
-  links.push({ id:uid(), folderId, name, url, platform:document.getElementById('linkPlatform').value, price:document.getElementById('linkPrice').value.trim() });
+  const url  = document.getElementById('linkUrl').value.trim();
+  if (!name || !url) { showToast('Please fill in product name and URL'); return; }
+
+  if (editingLinkId) {
+    const l = links.find(l => l.id === editingLinkId);
+    l.name     = name;
+    l.url      = url;
+    l.platform = document.getElementById('linkPlatform').value;
+    l.price    = document.getElementById('linkPrice').value.trim();
+    l.image    = currentImageB64;
+  } else {
+    const folderId = currentFolderId === '__all__' ? (folders[0]?.id || null) : currentFolderId;
+    links.push({ id:uid(), folderId, name, url, platform:document.getElementById('linkPlatform').value, price:document.getElementById('linkPrice').value.trim(), image:currentImageB64 });
+  }
+
   save(); closeModal('linkModal');
-  if (currentFolderId) renderLinks(currentFolderId==='__all__'?links:links.filter(l=>l.folderId===currentFolderId));
-  render(); showToast('Link added');
+  const base = currentFolderId === '__all__' ? links : links.filter(l => l.folderId === currentFolderId);
+  renderLinks(base);
+  render();
+  showToast(editingLinkId ? 'Link updated' : 'Link added');
 }
 
 function deleteLink(id) {
-  links = links.filter(l=>l.id!==id);
+  links = links.filter(l => l.id !== id);
   save();
-  renderLinks(currentFolderId==='__all__'?links:links.filter(l=>l.folderId===currentFolderId));
+  renderLinks(currentFolderId === '__all__' ? links : links.filter(l => l.folderId === currentFolderId));
   render(); showToast('Link removed');
 }
 
 function copyLink(url) {
-  navigator.clipboard.writeText(url).then(()=>showToast('Link copied!'));
+  navigator.clipboard.writeText(url).then(() => showToast('Link copied!'));
 }
 
-function openModal(id) { document.getElementById(id).classList.add('open'); }
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
-document.querySelectorAll('.modal-overlay').forEach(el=>{
-  el.addEventListener('click', e=>{ if(e.target===el) closeModal(el.id); });
+document.querySelectorAll('.modal-overlay').forEach(el => {
+  el.addEventListener('click', e => { if (e.target === el) closeModal(el.id); });
 });
 
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 2200);
+  setTimeout(() => t.classList.remove('show'), 2200);
 }
 
 render();

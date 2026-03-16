@@ -8,220 +8,69 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: #faf7f2; color: #1a1612; min-height: 100vh; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: #faf7f2;
-    color: #1a1612;
-    min-height: 100vh;
-    font-size: 15px;
-  }
+  .pub-header { background: #fff; border-bottom: 1px solid #e8e0d0; padding: 0 20px; height: 52px; display: flex; align-items: center; justify-content: center; position: sticky; top: 0; z-index: 50; }
+  .pub-logo { font-family: 'DM Serif Display', serif; font-size: 17px; color: #1a1612; display: flex; align-items: center; gap: 7px; }
+  .pub-logo-dot { width: 7px; height: 7px; background: #c4603a; border-radius: 50%; display: inline-block; }
 
-  /* HEADER */
-  .pub-header {
-    background: #fff;
-    border-bottom: 1px solid #e8e0d0;
-    padding: 0 20px;
-    height: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: sticky;
-    top: 0;
-    z-index: 50;
-  }
-
-  .pub-logo {
-    font-family: 'DM Serif Display', serif;
-    font-size: 17px;
-    color: #1a1612;
-    display: flex;
-    align-items: center;
-    gap: 7px;
-  }
-
-  .pub-logo-dot {
-    width: 7px; height: 7px;
-    background: #c4603a;
-    border-radius: 50%;
-    display: inline-block;
-  }
-
-  /* CONTENT */
-  .pub-wrap {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 40px 20px 60px;
-  }
+  .pub-wrap { max-width: 500px; margin: 0 auto; padding: 40px 20px 60px; }
 
   /* PROFILE */
-  .profile {
-    text-align: center;
-    margin-bottom: 36px;
-  }
+  .profile { text-align: center; margin-bottom: 36px; }
+  .profile-avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #c4603a, #e8845e); margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 32px; box-shadow: 0 4px 20px rgba(196,96,58,0.25); }
+  .profile-name { font-family: 'DM Serif Display', serif; font-size: 26px; color: #1a1612; margin-bottom: 8px; }
+  .profile-bio { font-size: 13px; color: #a89e93; line-height: 1.7; }
+  .profile-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+  .profile-tag { font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: 20px; background: #fff; border: 1px solid #e8e0d0; color: #6b6158; }
 
-  .profile-avatar {
-    width: 80px; height: 80px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #c4603a, #e8845e);
-    margin: 0 auto 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 32px;
-    box-shadow: 0 4px 20px rgba(196,96,58,0.25);
-  }
+  /* FOLDER TILES */
+  .folders-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px; }
+  .folder-tile { background: #fff; border: 1px solid #e8e0d0; border-radius: 16px; padding: 18px 16px 14px; cursor: pointer; transition: box-shadow .18s, transform .18s; position: relative; overflow: hidden; }
+  .folder-tile::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--fc, #c4603a); opacity: 0.7; }
+  .folder-tile:hover { box-shadow: 0 6px 24px rgba(26,22,18,0.1); transform: translateY(-2px); }
+  .folder-tile:active { transform: translateY(0); }
+  .folder-tile-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; }
+  .folder-tile-icon { width: 42px; height: 42px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .folder-tile-arrow { font-size: 22px; font-weight: 300; line-height: 1; opacity: 0.5; margin-top: 2px; }
+  .folder-tile-name { font-size: 13px; font-weight: 600; color: #1a1612; line-height: 1.35; margin-bottom: 4px; }
+  .folder-tile-count { font-size: 11px; color: #a89e93; }
 
-  .profile-name {
-    font-family: 'DM Serif Display', serif;
-    font-size: 26px;
-    color: #1a1612;
-    margin-bottom: 8px;
-  }
+  /* FOLDER PREVIEW STRIP — thumbnail row on tile */
+  .folder-tile-thumbs { display: flex; gap: 4px; margin-top: 10px; }
+  .folder-tile-thumb { width: 32px; height: 32px; border-radius: 6px; object-fit: cover; border: 1px solid #e8e0d0; }
+  .folder-tile-thumb-more { width: 32px; height: 32px; border-radius: 6px; background: #f4f0e8; border: 1px solid #e8e0d0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: #a89e93; }
 
-  .profile-bio {
-    font-size: 13px;
-    color: #a89e93;
-    line-height: 1.7;
-  }
+  /* BACK BUTTON */
+  .back-to-folders { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: #6b6158; background: #fff; border: 1px solid #e8e0d0; border-radius: 40px; padding: 7px 16px; cursor: pointer; margin-bottom: 22px; transition: all .15s; }
+  .back-to-folders:hover { background: #f4f0e8; color: #1a1612; }
 
-  .profile-tags {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 12px;
-  }
+  /* FOLDER HEADING */
+  .folder-heading { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #e8e0d0; }
+  .folder-heading-icon { width: 36px; height: 36px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .folder-heading-name { font-size: 16px; font-weight: 600; color: #1a1612; }
+  .folder-heading-count { font-size: 11px; color: #a89e93; margin-top: 2px; }
 
-  .profile-tag {
-    font-size: 11px;
-    font-weight: 500;
-    padding: 4px 12px;
-    border-radius: 20px;
-    background: #fff;
-    border: 1px solid #e8e0d0;
-    color: #6b6158;
-  }
+  /* PRODUCT CARDS — with and without image */
+  .product-card { display: flex; align-items: center; background: #fff; border: 1px solid #e8e0d0; border-radius: 14px; margin-bottom: 10px; text-decoration: none; color: inherit; transition: box-shadow .18s, transform .18s; overflow: hidden; }
+  .product-card:hover { box-shadow: 0 6px 24px rgba(26,22,18,0.1); transform: translateY(-1px); }
 
-  /* FOLDER SECTION */
-  .folder-section {
-    margin-bottom: 32px;
-  }
+  /* card WITH image */
+  .product-card.has-image { flex-direction: column; align-items: stretch; }
+  .product-card-img { width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 1px solid #e8e0d0; }
+  .product-card-body { padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 
-  .folder-heading {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 14px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #e8e0d0;
-  }
+  /* card WITHOUT image */
+  .product-card.no-image { padding: 14px 16px; gap: 12px; }
+  .product-card-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
 
-  .folder-heading-icon {
-    width: 34px; height: 34px;
-    border-radius: 9px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 17px;
-    flex-shrink: 0;
-  }
+  .product-info { flex: 1; min-width: 0; }
+  .product-name { font-size: 13px; font-weight: 500; color: #1a1612; line-height: 1.4; margin-bottom: 4px; }
+  .product-meta { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .product-platform { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 20px; }
+  .product-price { font-size: 12px; font-weight: 600; color: #1a1612; }
+  .product-arrow { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 13px; font-weight: 500; }
 
-  .folder-heading-name {
-    font-size: 15px;
-    font-weight: 600;
-    color: #1a1612;
-  }
-
-  .folder-heading-count {
-    font-size: 11px;
-    color: #a89e93;
-    margin-top: 1px;
-  }
-
-  /* PRODUCT CARD */
-  .product-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 16px;
-    background: #fff;
-    border: 1px solid #e8e0d0;
-    border-radius: 14px;
-    margin-bottom: 10px;
-    text-decoration: none;
-    color: inherit;
-    transition: box-shadow .18s, transform .18s;
-    gap: 12px;
-  }
-
-  .product-card:hover {
-    box-shadow: 0 6px 24px rgba(26,22,18,0.1);
-    transform: translateY(-1px);
-  }
-
-  .product-card-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    min-width: 0;
-    flex: 1;
-  }
-
-  .product-icon {
-    width: 40px; height: 40px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    flex-shrink: 0;
-  }
-
-  .product-name {
-    font-size: 13px;
-    font-weight: 500;
-    color: #1a1612;
-    line-height: 1.4;
-    margin-bottom: 3px;
-  }
-
-  .product-meta {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-
-  .product-platform {
-    font-size: 11px;
-    font-weight: 500;
-    padding: 2px 8px;
-    border-radius: 20px;
-  }
-
-  .product-price {
-    font-size: 11px;
-    color: #a89e93;
-  }
-
-  .product-arrow {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-size: 14px;
-    font-weight: 500;
-    transition: background .15s;
-  }
-
-  .product-card:hover .product-arrow {
-    opacity: 0.85;
-  }
-
-  /* PLATFORM COLORS */
   .p-meesho { background: #fde8f7; color: #8b1a6b; }
   .p-nykaa { background: #ffedf2; color: #c4154a; }
   .p-amazon { background: #fff3e0; color: #c45500; }
@@ -229,56 +78,27 @@
   .p-flipkart { background: #e8f0fe; color: #1a5ce6; }
   .p-other { background: #f4f0e8; color: #6b6158; }
 
-  /* EMPTY STATE */
-  .empty {
-    text-align: center;
-    padding: 60px 20px;
-    color: #a89e93;
-  }
+  /* EMPTY */
+  .empty { text-align: center; padding: 60px 20px; color: #a89e93; }
   .empty-emoji { font-size: 36px; margin-bottom: 12px; }
   .empty-msg { font-size: 14px; }
 
   /* FOOTER */
-  .pub-footer {
-    text-align: center;
-    padding: 28px 20px;
-    border-top: 1px solid #e8e0d0;
-    margin-top: 16px;
-  }
+  .pub-footer { text-align: center; padding: 28px 20px; border-top: 1px solid #e8e0d0; margin-top: 16px; }
+  .pub-footer-text { font-size: 12px; color: #a89e93; line-height: 1.8; }
+  .affiliate-note { display: inline-block; font-size: 11px; color: #a89e93; background: #f4f0e8; padding: 4px 12px; border-radius: 20px; margin-top: 8px; }
 
-  .pub-footer-text {
-    font-size: 12px;
-    color: #a89e93;
-    line-height: 1.8;
-  }
-
-  .affiliate-note {
-    display: inline-block;
-    font-size: 11px;
-    color: #a89e93;
-    background: #f4f0e8;
-    padding: 4px 12px;
-    border-radius: 20px;
-    margin-top: 8px;
-  }
-
-  @media (max-width: 480px) {
-    .pub-wrap { padding: 28px 16px 48px; }
-    .profile-name { font-size: 22px; }
-  }
+  @media (max-width: 360px) { .folders-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { .pub-wrap { padding: 28px 16px 48px; } .profile-name { font-size: 22px; } .product-card-img { height: 160px; } }
 </style>
 </head>
 <body>
 
 <header class="pub-header">
-  <div class="pub-logo">
-    <span class="pub-logo-dot"></span>
-    LinkNest
-  </div>
+  <div class="pub-logo"><span class="pub-logo-dot"></span>LinkNest</div>
 </header>
 
 <div class="pub-wrap">
-
   <div class="profile">
     <div class="profile-avatar">✨</div>
     <div class="profile-name">traditionalbebo</div>
@@ -296,55 +116,95 @@
     <div class="pub-footer-text">Updated regularly with new finds</div>
     <div class="affiliate-note">All links may be affiliate links</div>
   </div>
-
 </div>
 
 <script>
-const PLATFORM_LABELS = { nykaa:'Nykaa', meesho:'Meesho', amazon:'Amazon', myntra:'Myntra', flipkart:'Flipkart', other:'Other' };
-const PLATFORM_CLASS  = { nykaa:'p-nykaa', meesho:'p-meesho', amazon:'p-amazon', myntra:'p-myntra', flipkart:'p-flipkart', other:'p-other' };
+const PL = { nykaa:'Nykaa', meesho:'Meesho', amazon:'Amazon', myntra:'Myntra', flipkart:'Flipkart', other:'Other' };
+const PC = { nykaa:'p-nykaa', meesho:'p-meesho', amazon:'p-amazon', myntra:'p-myntra', flipkart:'p-flipkart', other:'p-other' };
 
-const folders = JSON.parse(localStorage.getItem('linknest_folders') || '[]');
-const links   = JSON.parse(localStorage.getItem('linknest_links')   || '[]');
-
-const el = document.getElementById('content');
-
+const folders   = JSON.parse(localStorage.getItem('linknest_folders') || '[]');
+const links     = JSON.parse(localStorage.getItem('linknest_links')   || '[]');
 const populated = folders.filter(f => links.some(l => l.folderId === f.id));
+const el        = document.getElementById('content');
 
-if (!populated.length) {
-  el.innerHTML = `
-    <div class="empty">
-      <div class="empty-emoji">🛍️</div>
-      <div class="empty-msg">No products yet — check back soon!</div>
-    </div>`;
-} else {
-  el.innerHTML = populated.map(f => {
-    const fl = links.filter(l => l.folderId === f.id);
-    return `
-      <div class="folder-section">
-        <div class="folder-heading">
-          <div class="folder-heading-icon" style="background:${f.color}18;">${f.icon}</div>
-          <div>
-            <div class="folder-heading-name">${f.name}</div>
-            <div class="folder-heading-count">${fl.length} product${fl.length !== 1 ? 's' : ''}</div>
+function showFolders() {
+  if (!populated.length) {
+    el.innerHTML = `<div class="empty"><div class="empty-emoji">🛍️</div><div class="empty-msg">No products yet — check back soon!</div></div>`;
+    return;
+  }
+  el.innerHTML = `<div class="folders-grid">
+    ${populated.map(f => {
+      const fl = links.filter(l => l.folderId === f.id);
+      const withImages = fl.filter(l => l.image).slice(0, 3);
+      const thumbsHtml = withImages.length
+        ? `<div class="folder-tile-thumbs">
+            ${withImages.map(l => `<img src="${l.image}" class="folder-tile-thumb" alt="">`).join('')}
+            ${fl.length > withImages.length ? `<div class="folder-tile-thumb-more">+${fl.length - withImages.length}</div>` : ''}
+           </div>`
+        : '';
+      return `
+        <div class="folder-tile" onclick="showProducts('${f.id}')" style="--fc:${f.color};">
+          <div class="folder-tile-top">
+            <div class="folder-tile-icon" style="background:${f.color}18;">${f.icon}</div>
+            <div class="folder-tile-arrow" style="color:${f.color};">›</div>
           </div>
+          <div class="folder-tile-name">${f.name}</div>
+          <div class="folder-tile-count">${fl.length} product${fl.length !== 1 ? 's' : ''}</div>
+          ${thumbsHtml}
+        </div>`;
+    }).join('')}
+  </div>`;
+}
+
+function showProducts(folderId) {
+  const f  = folders.find(f => f.id === folderId);
+  const fl = links.filter(l => l.folderId === folderId);
+  el.innerHTML = `
+    <div>
+      <button class="back-to-folders" onclick="showFolders()">← All Collections</button>
+      <div class="folder-heading">
+        <div class="folder-heading-icon" style="background:${f.color}18;">${f.icon}</div>
+        <div>
+          <div class="folder-heading-name">${f.name}</div>
+          <div class="folder-heading-count">${fl.length} product${fl.length !== 1 ? 's' : ''}</div>
         </div>
-        ${fl.map(l => `
-          <a href="${l.url}" target="_blank" rel="noopener" class="product-card">
-            <div class="product-card-left">
-              <div class="product-icon" style="background:${f.color}15;">${f.icon}</div>
-              <div style="min-width:0;">
+      </div>
+      ${fl.map(l => {
+        if (l.image) {
+          return `
+            <a href="${l.url}" target="_blank" rel="noopener" class="product-card has-image">
+              <img src="${l.image}" class="product-card-img" alt="${l.name}">
+              <div class="product-card-body">
+                <div class="product-info">
+                  <div class="product-name">${l.name}</div>
+                  <div class="product-meta">
+                    <span class="product-platform ${PC[l.platform]||'p-other'}">${PL[l.platform]||'Other'}</span>
+                    ${l.price ? `<span class="product-price">${l.price}</span>` : ''}
+                  </div>
+                </div>
+                <div class="product-arrow" style="background:${f.color}15;color:${f.color};">→</div>
+              </div>
+            </a>`;
+        } else {
+          return `
+            <a href="${l.url}" target="_blank" rel="noopener" class="product-card no-image">
+              <div class="product-card-icon" style="background:${f.color}15;">${f.icon}</div>
+              <div class="product-info">
                 <div class="product-name">${l.name}</div>
                 <div class="product-meta">
-                  <span class="product-platform ${PLATFORM_CLASS[l.platform]||'p-other'}">${PLATFORM_LABELS[l.platform]||'Other'}</span>
+                  <span class="product-platform ${PC[l.platform]||'p-other'}">${PL[l.platform]||'Other'}</span>
                   ${l.price ? `<span class="product-price">${l.price}</span>` : ''}
                 </div>
               </div>
-            </div>
-            <div class="product-arrow" style="background:${f.color}15;color:${f.color};">→</div>
-          </a>`).join('')}
-      </div>`;
-  }).join('');
+              <div class="product-arrow" style="background:${f.color}15;color:${f.color};">→</div>
+            </a>`;
+        }
+      }).join('')}
+    </div>`;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+showFolders();
 </script>
 </body>
 </html>
