@@ -3,623 +3,122 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LinkNest — Your Product Link Manager</title>
+<title>LinkNest — Admin</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #faf7f2;
-    --surface: #ffffff;
-    --surface2: #f4f0e8;
-    --border: #e8e0d0;
-    --text: #1a1612;
-    --text2: #6b6158;
-    --text3: #a89e93;
-    --accent: #c4603a;
-    --accent2: #e8845e;
-    --accent-bg: #fdf0eb;
-    --green: #3a7c5a;
-    --green-bg: #edf7f2;
-    --shadow: 0 2px 12px rgba(26,22,18,0.08);
+    --bg: #faf7f2; --surface: #ffffff; --surface2: #f4f0e8;
+    --border: #e8e0d0; --text: #1a1612; --text2: #6b6158; --text3: #a89e93;
+    --accent: #c4603a; --accent-bg: #fdf0eb;
+    --green: #3a7c5a; --green-bg: #edf7f2;
     --shadow-lg: 0 8px 32px rgba(26,22,18,0.12);
-    --radius: 14px;
-    --radius-sm: 8px;
+    --radius: 14px; --radius-sm: 8px;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 15px; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    font-size: 15px;
-  }
-
-  /* HEADER */
-  header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 0 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 64px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  .logo {
-    font-family: 'DM Serif Display', serif;
-    font-size: 22px;
-    color: var(--text);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .logo-dot {
-    width: 8px; height: 8px;
-    background: var(--accent);
-    border-radius: 50%;
-    display: inline-block;
-  }
-
+  header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 64px; position: sticky; top: 0; z-index: 100; }
+  .logo { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--text); display: flex; align-items: center; gap: 8px; }
+  .logo-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; display: inline-block; }
   .header-actions { display: flex; gap: 10px; align-items: center; }
 
-  .btn {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    padding: 8px 18px;
-    border-radius: 40px;
-    border: none;
-    cursor: pointer;
-    transition: all .18s;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .btn-primary {
-    background: var(--accent);
-    color: #fff;
-  }
+  .btn { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 8px 18px; border-radius: 40px; border: none; cursor: pointer; transition: all .18s; display: inline-flex; align-items: center; gap: 6px; }
+  .btn-primary { background: var(--accent); color: #fff; }
   .btn-primary:hover { background: #b0532e; transform: translateY(-1px); }
-
-  .btn-ghost {
-    background: transparent;
-    color: var(--text2);
-    border: 1px solid var(--border);
-  }
+  .btn-ghost { background: transparent; color: var(--text2); border: 1px solid var(--border); }
   .btn-ghost:hover { background: var(--surface2); }
-
   .btn-sm { padding: 6px 14px; font-size: 12px; }
 
-  /* LAYOUT */
-  .layout {
-    display: grid;
-    grid-template-columns: 260px 1fr;
-    min-height: calc(100vh - 64px);
-  }
+  .layout { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - 64px); }
 
-  /* SIDEBAR */
-  .sidebar {
-    background: var(--surface);
-    border-right: 1px solid var(--border);
-    padding: 24px 16px;
-    position: sticky;
-    top: 64px;
-    height: calc(100vh - 64px);
-    overflow-y: auto;
-  }
-
-  .sidebar-label {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: var(--text3);
-    padding: 0 10px;
-    margin-bottom: 8px;
-  }
-
-  .folder-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 9px 10px;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: all .15s;
-    margin-bottom: 2px;
-    gap: 8px;
-  }
-
+  .sidebar { background: var(--surface); border-right: 1px solid var(--border); padding: 24px 16px; position: sticky; top: 64px; height: calc(100vh - 64px); overflow-y: auto; }
+  .sidebar-label { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text3); padding: 0 10px; margin-bottom: 8px; }
+  .folder-item { display: flex; align-items: center; justify-content: space-between; padding: 9px 10px; border-radius: var(--radius-sm); cursor: pointer; transition: all .15s; margin-bottom: 2px; gap: 8px; }
   .folder-item:hover { background: var(--surface2); }
   .folder-item.active { background: var(--accent-bg); }
-
-  .folder-item-left {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    flex: 1;
-    min-width: 0;
-  }
-
-  .folder-icon {
-    width: 28px; height: 28px;
-    border-radius: 7px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    flex-shrink: 0;
-  }
-
-  .folder-name {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
+  .folder-item-left { display: flex; align-items: center; gap: 9px; flex: 1; min-width: 0; }
+  .folder-icon { width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .folder-name { font-size: 13px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .folder-item.active .folder-name { color: var(--accent); }
+  .folder-count { font-size: 11px; color: var(--text3); background: var(--surface2); padding: 2px 7px; border-radius: 20px; flex-shrink: 0; }
+  .folder-item.active .folder-count { background: var(--accent-bg); color: var(--accent); }
+  .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
 
-  .folder-count {
-    font-size: 11px;
-    color: var(--text3);
-    background: var(--surface2);
-    padding: 2px 7px;
-    border-radius: 20px;
-    flex-shrink: 0;
-  }
-
-  .folder-item.active .folder-count {
-    background: var(--accent-bg);
-    color: var(--accent);
-  }
-
-  .sidebar-divider {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 16px 0;
-  }
-
-  /* MAIN */
   .main { padding: 32px; }
+  .main-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 28px; gap: 16px; flex-wrap: wrap; }
+  .main-title { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--text); line-height: 1.2; }
+  .main-subtitle { font-size: 13px; color: var(--text3); margin-top: 4px; }
 
-  .main-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 28px;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+  .stat-label { font-size: 12px; color: var(--text3); margin-bottom: 6px; }
+  .stat-value { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--text); line-height: 1; }
 
-  .main-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 28px;
-    color: var(--text);
-    line-height: 1.2;
-  }
-
-  .main-subtitle {
-    font-size: 13px;
-    color: var(--text3);
-    margin-top: 4px;
-  }
-
-  /* STATS ROW */
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-bottom: 28px;
-  }
-
-  .stat-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 18px 20px;
-  }
-
-  .stat-label {
-    font-size: 12px;
-    color: var(--text3);
-    margin-bottom: 6px;
-  }
-
-  .stat-value {
-    font-family: 'DM Serif Display', serif;
-    font-size: 28px;
-    color: var(--text);
-    line-height: 1;
-  }
-
-  /* FOLDER GRID */
-  .folder-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 16px;
-    margin-bottom: 32px;
-  }
-
-  .folder-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px;
-    cursor: pointer;
-    transition: all .18s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .folder-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--folder-color, var(--accent));
-    border-radius: var(--radius) var(--radius) 0 0;
-  }
-
-  .folder-card:hover {
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-2px);
-  }
-
-  .folder-card-head {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 14px;
-  }
-
-  .folder-card-icon {
-    width: 40px; height: 40px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
-  }
-
-  .folder-card-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .folder-card-meta {
-    font-size: 12px;
-    color: var(--text3);
-    margin-top: 2px;
-  }
-
-  .folder-card-actions {
-    position: absolute;
-    top: 12px; right: 12px;
-    display: flex;
-    gap: 4px;
-    opacity: 0;
-    transition: opacity .15s;
-  }
-
+  .folder-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .folder-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; cursor: pointer; transition: all .18s; position: relative; overflow: hidden; }
+  .folder-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--folder-color, var(--accent)); border-radius: var(--radius) var(--radius) 0 0; }
+  .folder-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+  .folder-card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .folder-card-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .folder-card-title { font-size: 15px; font-weight: 600; color: var(--text); }
+  .folder-card-meta { font-size: 12px; color: var(--text3); margin-top: 2px; }
+  .folder-card-actions { position: absolute; top: 12px; right: 12px; display: flex; gap: 4px; opacity: 0; transition: opacity .15s; }
   .folder-card:hover .folder-card-actions { opacity: 1; }
-
-  .icon-btn {
-    width: 28px; height: 28px;
-    border-radius: 6px;
-    border: none;
-    background: var(--surface2);
-    color: var(--text2);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    transition: all .15s;
-  }
-
+  .icon-btn { width: 28px; height: 28px; border-radius: 6px; border: none; background: var(--surface2); color: var(--text2); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 13px; transition: all .15s; }
   .icon-btn:hover { background: var(--border); }
   .icon-btn.danger:hover { background: #ffeaea; color: #c0392b; }
+  .folder-links-preview { display: flex; flex-direction: column; gap: 6px; }
+  .link-preview-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text2); padding: 5px 8px; background: var(--surface2); border-radius: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .link-preview-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+  .link-preview-more { font-size: 11px; color: var(--text3); padding: 4px 8px; text-align: center; }
 
-  .folder-links-preview {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .link-preview-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    color: var(--text2);
-    padding: 5px 8px;
-    background: var(--surface2);
-    border-radius: 6px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .link-preview-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    flex-shrink: 0;
-  }
-
-  .link-preview-more {
-    font-size: 11px;
-    color: var(--text3);
-    padding: 4px 8px;
-    text-align: center;
-  }
-
-  /* LINK LIST VIEW */
   .links-section { display: none; }
   .links-section.visible { display: block; }
   .folders-section { display: block; }
   .folders-section.hidden { display: none; }
 
-  .back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    color: var(--text2);
-    cursor: pointer;
-    margin-bottom: 20px;
-    padding: 6px 0;
-    background: none;
-    border: none;
-    font-family: 'DM Sans', sans-serif;
-    transition: color .15s;
-  }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text2); cursor: pointer; margin-bottom: 20px; padding: 6px 0; background: none; border: none; font-family: 'DM Sans', sans-serif; transition: color .15s; }
   .back-btn:hover { color: var(--accent); }
 
-  .links-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .search-input {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    padding: 8px 14px 8px 36px;
-    border: 1px solid var(--border);
-    border-radius: 40px;
-    background: var(--surface);
-    color: var(--text);
-    outline: none;
-    width: 240px;
-    transition: border .15s;
-    position: relative;
-  }
-
+  .links-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; gap: 12px; flex-wrap: wrap; }
+  .search-input { font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 8px 14px 8px 36px; border: 1px solid var(--border); border-radius: 40px; background: var(--surface); color: var(--text); outline: none; width: 240px; transition: border .15s; }
   .search-input:focus { border-color: var(--accent); }
-
   .search-wrap { position: relative; }
-  .search-icon {
-    position: absolute;
-    left: 12px; top: 50%;
-    transform: translateY(-50%);
-    color: var(--text3);
-    font-size: 13px;
-    pointer-events: none;
-  }
+  .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text3); font-size: 13px; pointer-events: none; }
 
-  .links-table {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-  }
-
-  .links-table-header {
-    display: grid;
-    grid-template-columns: 2fr 3fr 1fr 80px;
-    padding: 10px 20px;
-    background: var(--surface2);
-    border-bottom: 1px solid var(--border);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-    color: var(--text3);
-    gap: 16px;
-  }
-
-  .link-row {
-    display: grid;
-    grid-template-columns: 2fr 3fr 1fr 80px;
-    padding: 14px 20px;
-    border-bottom: 1px solid var(--border);
-    align-items: center;
-    gap: 16px;
-    transition: background .12s;
-  }
-
+  .links-table { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .links-table-header { display: grid; grid-template-columns: 2fr 3fr 1fr 80px; padding: 10px 20px; background: var(--surface2); border-bottom: 1px solid var(--border); font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text3); gap: 16px; }
+  .link-row { display: grid; grid-template-columns: 2fr 3fr 1fr 80px; padding: 14px 20px; border-bottom: 1px solid var(--border); align-items: center; gap: 16px; transition: background .12s; }
   .link-row:last-child { border-bottom: none; }
   .link-row:hover { background: var(--surface2); }
-
-  .link-name {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text);
-  }
-
-  .link-url {
-    font-size: 12px;
-    color: var(--accent);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    cursor: pointer;
-    text-decoration: none;
-    display: block;
-  }
-
+  .link-name { font-size: 14px; font-weight: 500; color: var(--text); }
+  .link-url { font-size: 12px; color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; text-decoration: none; display: block; }
   .link-url:hover { text-decoration: underline; }
-
-  .platform-badge {
-    font-size: 11px;
-    font-weight: 500;
-    padding: 3px 10px;
-    border-radius: 20px;
-    display: inline-block;
-  }
-
+  .platform-badge { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; display: inline-block; }
   .link-actions { display: flex; gap: 4px; justify-content: flex-end; }
 
-  .empty-state {
-    text-align: center;
-    padding: 60px 20px;
-  }
+  .empty-state { text-align: center; padding: 60px 20px; }
+  .empty-icon { font-size: 40px; margin-bottom: 12px; }
+  .empty-title { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--text); margin-bottom: 6px; }
+  .empty-desc { font-size: 13px; color: var(--text3); margin-bottom: 20px; }
 
-  .empty-icon {
-    font-size: 40px;
-    margin-bottom: 12px;
-  }
-
-  .empty-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 20px;
-    color: var(--text);
-    margin-bottom: 6px;
-  }
-
-  .empty-desc {
-    font-size: 13px;
-    color: var(--text3);
-    margin-bottom: 20px;
-  }
-
-  /* MODAL */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(26,22,18,0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    padding: 20px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .2s;
-  }
-
-  .modal-overlay.open {
-    opacity: 1;
-    pointer-events: all;
-  }
-
-  .modal {
-    background: var(--surface);
-    border-radius: var(--radius);
-    padding: 28px;
-    width: 100%;
-    max-width: 460px;
-    box-shadow: var(--shadow-lg);
-    transform: translateY(12px);
-    transition: transform .2s;
-  }
-
+  .modal-overlay { position: fixed; inset: 0; background: rgba(26,22,18,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 20px; opacity: 0; pointer-events: none; transition: opacity .2s; }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal { background: var(--surface); border-radius: var(--radius); padding: 28px; width: 100%; max-width: 460px; box-shadow: var(--shadow-lg); transform: translateY(12px); transition: transform .2s; }
   .modal-overlay.open .modal { transform: translateY(0); }
-
-  .modal-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 22px;
-    color: var(--text);
-    margin-bottom: 20px;
-  }
-
+  .modal-title { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--text); margin-bottom: 20px; }
   .form-group { margin-bottom: 16px; }
-
-  .form-label {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text2);
-    margin-bottom: 6px;
-    display: block;
-    letter-spacing: .03em;
-  }
-
-  .form-input, .form-select {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    width: 100%;
-    padding: 10px 14px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: var(--bg);
-    color: var(--text);
-    outline: none;
-    transition: border .15s;
-  }
-
+  .form-label { font-size: 12px; font-weight: 600; color: var(--text2); margin-bottom: 6px; display: block; letter-spacing: .03em; }
+  .form-input, .form-select { font-family: 'DM Sans', sans-serif; font-size: 14px; width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); color: var(--text); outline: none; transition: border .15s; }
   .form-input:focus, .form-select:focus { border-color: var(--accent); }
-
-  .emoji-picker {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 8px;
-  }
-
-  .emoji-opt {
-    width: 36px; height: 36px;
-    border-radius: 8px;
-    border: 2px solid var(--border);
-    background: var(--surface2);
-    font-size: 18px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all .12s;
-  }
-
+  .emoji-picker { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .emoji-opt { width: 36px; height: 36px; border-radius: 8px; border: 2px solid var(--border); background: var(--surface2); font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .12s; }
   .emoji-opt:hover, .emoji-opt.selected { border-color: var(--accent); background: var(--accent-bg); }
-
-  .color-picker {
-    display: flex;
-    gap: 8px;
-    margin-top: 8px;
-  }
-
-  .color-opt {
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    border: 3px solid transparent;
-    cursor: pointer;
-    transition: all .12s;
-  }
-
+  .color-picker { display: flex; gap: 8px; margin-top: 8px; }
+  .color-opt { width: 28px; height: 28px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; transition: all .12s; }
   .color-opt.selected { border-color: var(--text); transform: scale(1.1); }
+  .modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
 
-  .modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 24px;
-  }
-
-  /* PLATFORM COLORS */
   .platform-meesho { background: #fde8f7; color: #8b1a6b; }
   .platform-nykaa { background: #ffedf2; color: #c4154a; }
   .platform-amazon { background: #fff3e0; color: #c45500; }
@@ -627,56 +126,15 @@
   .platform-flipkart { background: #e8f0fe; color: #1a5ce6; }
   .platform-other { background: var(--surface2); color: var(--text2); }
 
-  /* COPY TOAST */
-  .toast {
-    position: fixed;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%) translateY(80px);
-    background: var(--text);
-    color: #fff;
-    font-size: 13px;
-    padding: 10px 20px;
-    border-radius: 40px;
-    transition: transform .25s;
-    z-index: 2000;
-    pointer-events: none;
-  }
-
+  .toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--text); color: #fff; font-size: 13px; padding: 10px 20px; border-radius: 40px; transition: transform .25s; z-index: 2000; pointer-events: none; }
   .toast.show { transform: translateX(-50%) translateY(0); }
 
-  /* PUBLIC PAGE TOGGLE */
-  .public-banner {
-    background: var(--green-bg);
-    border: 1px solid #b8dfc8;
-    border-radius: var(--radius);
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .public-banner-text { font-size: 13px; color: var(--green); }
+  .public-banner { background: var(--green-bg); border: 1px solid #b8dfc8; border-radius: var(--radius); padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 10px; }
   .public-banner-title { font-size: 14px; font-weight: 600; color: var(--green); margin-bottom: 2px; }
-
-  .public-url {
-    font-size: 12px;
-    background: #fff;
-    border: 1px solid #b8dfc8;
-    border-radius: 6px;
-    padding: 6px 12px;
-    color: var(--green);
-    font-family: monospace;
-    cursor: pointer;
-    transition: background .12s;
-  }
-
+  .public-banner-text { font-size: 13px; color: var(--green); }
+  .public-url { font-size: 12px; background: #fff; border: 1px solid #b8dfc8; border-radius: 6px; padding: 6px 12px; color: var(--green); font-family: monospace; cursor: pointer; transition: background .12s; text-decoration: none; display: inline-block; }
   .public-url:hover { background: #d8f0e5; }
 
-  /* RESPONSIVE */
   @media (max-width: 768px) {
     .layout { grid-template-columns: 1fr; }
     .sidebar { display: none; }
@@ -684,33 +142,21 @@
     .stats-row { grid-template-columns: repeat(2, 1fr); }
     .folder-grid { grid-template-columns: 1fr; }
     .links-table-header { display: none; }
-    .link-row { grid-template-columns: 1fr 80px; grid-template-rows: auto auto; }
-    .link-row > :nth-child(2) { grid-column: 1; }
-    .link-row > :nth-child(3) { grid-column: 1; }
+    .link-row { grid-template-columns: 1fr 80px; }
   }
 </style>
 </head>
 <body>
 
-<!-- PUBLIC PAGE ROOT (hidden by default) -->
-<div id="publicRoot" style="display:none;"></div>
-
-<!-- ADMIN ROOT -->
-<div id="adminRoot">
-
 <header>
-  <div class="logo">
-    <span class="logo-dot"></span>
-    LinkNest
-  </div>
+  <div class="logo"><span class="logo-dot"></span>LinkNest</div>
   <div class="header-actions">
-    <button class="btn btn-ghost btn-sm" onclick="showPublicPage()">🌐 Public Page</button>
+    <a href="public.html" target="_blank" class="btn btn-ghost btn-sm">🌐 View Public Page</a>
     <button class="btn btn-primary btn-sm" onclick="openFolderModal()">+ New Folder</button>
   </div>
 </header>
 
 <div class="layout">
-  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-label">Collections</div>
     <div id="sidebarFolders"></div>
@@ -725,10 +171,7 @@
     </div>
   </aside>
 
-  <!-- MAIN -->
   <main class="main">
-
-    <!-- FOLDERS VIEW -->
     <div class="folders-section" id="foldersSection">
       <div class="main-header">
         <div>
@@ -737,34 +180,21 @@
         </div>
         <button class="btn btn-primary" onclick="openFolderModal()">+ New Folder</button>
       </div>
-
       <div class="public-banner">
         <div>
           <div class="public-banner-title">Your public page is live</div>
-          <div class="public-banner-text">Share this with your audience — all your folders and links in one place</div>
+          <div class="public-banner-text">Share this link with your audience on Instagram</div>
         </div>
-        <div class="public-url" onclick="copyPublicUrl()">🔗 traditionalbebo.github.io/LinkNest</div>
+        <a href="public.html" target="_blank" class="public-url">🔗 traditionalbebo.github.io/LinkNest/public.html</a>
       </div>
-
       <div class="stats-row">
-        <div class="stat-card">
-          <div class="stat-label">Total Folders</div>
-          <div class="stat-value" id="totalFolders">0</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Total Links</div>
-          <div class="stat-value" id="totalLinks">0</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Platforms</div>
-          <div class="stat-value" id="totalPlatforms">0</div>
-        </div>
+        <div class="stat-card"><div class="stat-label">Total Folders</div><div class="stat-value" id="totalFolders">0</div></div>
+        <div class="stat-card"><div class="stat-label">Total Links</div><div class="stat-value" id="totalLinks">0</div></div>
+        <div class="stat-card"><div class="stat-label">Platforms</div><div class="stat-value" id="totalPlatforms">0</div></div>
       </div>
-
       <div id="folderGrid" class="folder-grid"></div>
     </div>
 
-    <!-- LINKS VIEW -->
     <div class="links-section" id="linksSection">
       <button class="back-btn" onclick="showFolders()">← Back to folders</button>
       <div class="main-header">
@@ -782,7 +212,6 @@
       </div>
       <div id="linksTable"></div>
     </div>
-
   </main>
 </div>
 
@@ -796,7 +225,7 @@
     </div>
     <div class="form-group">
       <label class="form-label">Icon</label>
-      <div class="emoji-picker" id="emojiPicker">
+      <div class="emoji-picker">
         <div class="emoji-opt selected" data-emoji="💄" onclick="selectEmoji(this)">💄</div>
         <div class="emoji-opt" data-emoji="👗" onclick="selectEmoji(this)">👗</div>
         <div class="emoji-opt" data-emoji="💍" onclick="selectEmoji(this)">💍</div>
@@ -863,8 +292,6 @@
 
 <div class="toast" id="toast"></div>
 
-</div><!-- end adminRoot -->
-
 <script>
 let folders = JSON.parse(localStorage.getItem('linknest_folders') || '[]');
 let links = JSON.parse(localStorage.getItem('linknest_links') || '[]');
@@ -873,7 +300,6 @@ let editingFolderId = null;
 let selectedEmoji = '💄';
 let selectedColor = '#c4603a';
 
-// Seed data
 if (folders.length === 0) {
   folders = [
     { id: 'f1', name: 'Nykaa Makeup Finds', icon: '💄', color: '#c4154a' },
@@ -894,89 +320,64 @@ function save() {
   localStorage.setItem('linknest_folders', JSON.stringify(folders));
   localStorage.setItem('linknest_links', JSON.stringify(links));
 }
-
 function uid() { return 'id_' + Date.now() + Math.random().toString(36).slice(2); }
-
 function getPlatformLabel(p) {
-  return { nykaa: 'Nykaa', meesho: 'Meesho', amazon: 'Amazon', myntra: 'Myntra', flipkart: 'Flipkart', other: 'Other' }[p] || 'Other';
+  return { nykaa:'Nykaa', meesho:'Meesho', amazon:'Amazon', myntra:'Myntra', flipkart:'Flipkart', other:'Other' }[p] || 'Other';
 }
 
-function render() {
-  renderSidebar();
-  renderFolderGrid();
-  updateStats();
-}
+function render() { renderSidebar(); renderFolderGrid(); updateStats(); }
 
 function renderSidebar() {
-  const el = document.getElementById('sidebarFolders');
-  el.innerHTML = folders.map(f => `
-    <div class="folder-item ${currentFolderId === f.id ? 'active' : ''}" onclick="openFolder('${f.id}')">
+  document.getElementById('sidebarFolders').innerHTML = folders.map(f => `
+    <div class="folder-item ${currentFolderId===f.id?'active':''}" onclick="openFolder('${f.id}')">
       <div class="folder-item-left">
         <div class="folder-icon" style="background:${f.color}22;">${f.icon}</div>
         <span class="folder-name">${f.name}</span>
       </div>
       <span class="folder-count">${links.filter(l=>l.folderId===f.id).length}</span>
-    </div>
-  `).join('');
+    </div>`).join('');
   document.getElementById('allCount').textContent = links.length;
 }
 
 function renderFolderGrid() {
   const grid = document.getElementById('folderGrid');
-  if (folders.length === 0) {
-    grid.innerHTML = `
-      <div class="empty-state" style="grid-column:1/-1;">
-        <div class="empty-icon">📂</div>
-        <div class="empty-title">No folders yet</div>
-        <div class="empty-desc">Create your first folder to start organising your affiliate links</div>
-        <button class="btn btn-primary" onclick="openFolderModal()">+ Create Folder</button>
-      </div>`;
+  if (!folders.length) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon">📂</div><div class="empty-title">No folders yet</div><div class="empty-desc">Create your first folder to start organising</div><button class="btn btn-primary" onclick="openFolderModal()">+ Create Folder</button></div>`;
     return;
   }
   grid.innerHTML = folders.map(f => {
-    const folderLinks = links.filter(l => l.folderId === f.id);
-    const preview = folderLinks.slice(0, 2).map(l => `
-      <div class="link-preview-item">
-        <div class="link-preview-dot" style="background:${f.color}"></div>
-        ${l.name}
-      </div>`).join('');
-    const more = folderLinks.length > 2 ? `<div class="link-preview-more">+${folderLinks.length - 2} more links</div>` : '';
-    return `
-      <div class="folder-card" style="--folder-color:${f.color}" onclick="openFolder('${f.id}')">
-        <div class="folder-card-actions" onclick="event.stopPropagation()">
-          <button class="icon-btn" onclick="editFolder('${f.id}')" title="Edit">✏️</button>
-          <button class="icon-btn danger" onclick="deleteFolder('${f.id}')" title="Delete">🗑️</button>
-        </div>
-        <div class="folder-card-head">
-          <div class="folder-card-icon" style="background:${f.color}22;">${f.icon}</div>
-          <div>
-            <div class="folder-card-title">${f.name}</div>
-            <div class="folder-card-meta">${folderLinks.length} link${folderLinks.length !== 1 ? 's' : ''}</div>
-          </div>
-        </div>
-        <div class="folder-links-preview">
-          ${folderLinks.length === 0 ? '<div style="font-size:12px;color:var(--text3);padding:4px 0;">No links yet — click to add</div>' : preview + more}
-        </div>
-      </div>`;
+    const fl = links.filter(l=>l.folderId===f.id);
+    const preview = fl.slice(0,2).map(l=>`<div class="link-preview-item"><div class="link-preview-dot" style="background:${f.color}"></div>${l.name}</div>`).join('');
+    const more = fl.length>2 ? `<div class="link-preview-more">+${fl.length-2} more</div>` : '';
+    return `<div class="folder-card" style="--folder-color:${f.color}" onclick="openFolder('${f.id}')">
+      <div class="folder-card-actions" onclick="event.stopPropagation()">
+        <button class="icon-btn" onclick="editFolder('${f.id}')">✏️</button>
+        <button class="icon-btn danger" onclick="deleteFolder('${f.id}')">🗑️</button>
+      </div>
+      <div class="folder-card-head">
+        <div class="folder-card-icon" style="background:${f.color}22;">${f.icon}</div>
+        <div><div class="folder-card-title">${f.name}</div><div class="folder-card-meta">${fl.length} link${fl.length!==1?'s':''}</div></div>
+      </div>
+      <div class="folder-links-preview">${fl.length===0?'<div style="font-size:12px;color:var(--text3);">No links yet</div>':preview+more}</div>
+    </div>`;
   }).join('');
 }
 
 function updateStats() {
   document.getElementById('totalFolders').textContent = folders.length;
   document.getElementById('totalLinks').textContent = links.length;
-  const platforms = new Set(links.map(l => l.platform));
-  document.getElementById('totalPlatforms').textContent = platforms.size;
+  document.getElementById('totalPlatforms').textContent = new Set(links.map(l=>l.platform)).size;
 }
 
 function openFolder(id) {
   currentFolderId = id;
-  const folder = folders.find(f => f.id === id);
-  document.getElementById('currentFolderTitle').textContent = folder.icon + ' ' + folder.name;
-  document.getElementById('currentFolderMeta').textContent = links.filter(l=>l.folderId===id).length + ' links';
+  const f = folders.find(f=>f.id===id);
+  document.getElementById('currentFolderTitle').textContent = f.icon+' '+f.name;
+  document.getElementById('currentFolderMeta').textContent = links.filter(l=>l.folderId===id).length+' links';
   document.getElementById('foldersSection').classList.add('hidden');
   document.getElementById('linksSection').classList.add('visible');
   document.getElementById('linkSearch').value = '';
-  renderLinks(links.filter(l => l.folderId === id));
+  renderLinks(links.filter(l=>l.folderId===id));
   renderSidebar();
 }
 
@@ -990,7 +391,7 @@ function showFolders() {
 function showAllLinks() {
   currentFolderId = '__all__';
   document.getElementById('currentFolderTitle').textContent = '📋 All Links';
-  document.getElementById('currentFolderMeta').textContent = links.length + ' links across all folders';
+  document.getElementById('currentFolderMeta').textContent = links.length+' links across all folders';
   document.getElementById('foldersSection').classList.add('hidden');
   document.getElementById('linksSection').classList.add('visible');
   document.getElementById('linkSearch').value = '';
@@ -999,67 +400,47 @@ function showAllLinks() {
 
 function renderLinks(data) {
   const el = document.getElementById('linksTable');
-  if (data.length === 0) {
-    el.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">🔗</div>
-        <div class="empty-title">No links yet</div>
-        <div class="empty-desc">Add your first affiliate link to this folder</div>
-        <button class="btn btn-primary" onclick="openLinkModal()">+ Add Link</button>
-      </div>`;
+  if (!data.length) {
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">🔗</div><div class="empty-title">No links yet</div><div class="empty-desc">Add your first affiliate link</div><button class="btn btn-primary" onclick="openLinkModal()">+ Add Link</button></div>`;
     return;
   }
-  el.innerHTML = `
-    <div class="links-table">
-      <div class="links-table-header">
-        <div>Product</div>
-        <div>URL</div>
-        <div>Platform</div>
-        <div style="text-align:right;">Actions</div>
+  el.innerHTML = `<div class="links-table">
+    <div class="links-table-header"><div>Product</div><div>URL</div><div>Platform</div><div style="text-align:right;">Actions</div></div>
+    ${data.map(l=>`<div class="link-row">
+      <div><div class="link-name">${l.name}</div>${l.price?`<div style="font-size:11px;color:var(--text3);margin-top:2px;">${l.price}</div>`:''}</div>
+      <a class="link-url" href="${l.url}" target="_blank">${l.url}</a>
+      <div><span class="platform-badge platform-${l.platform}">${getPlatformLabel(l.platform)}</span></div>
+      <div class="link-actions">
+        <button class="icon-btn" onclick="copyLink('${l.url}')">📋</button>
+        <button class="icon-btn danger" onclick="deleteLink('${l.id}')">🗑️</button>
       </div>
-      ${data.map(l => `
-        <div class="link-row">
-          <div>
-            <div class="link-name">${l.name}</div>
-            ${l.price ? `<div style="font-size:11px;color:var(--text3);margin-top:2px;">${l.price}</div>` : ''}
-          </div>
-          <a class="link-url" href="${l.url}" target="_blank">${l.url}</a>
-          <div><span class="platform-badge platform-${l.platform}">${getPlatformLabel(l.platform)}</span></div>
-          <div class="link-actions">
-            <button class="icon-btn" onclick="copyLink('${l.url}')" title="Copy link">📋</button>
-            <button class="icon-btn danger" onclick="deleteLink('${l.id}')" title="Delete">🗑️</button>
-          </div>
-        </div>`).join('')}
-    </div>`;
+    </div>`).join('')}
+  </div>`;
 }
 
 function filterLinks(q) {
-  const base = currentFolderId === '__all__' ? links : links.filter(l => l.folderId === currentFolderId);
-  const filtered = base.filter(l => l.name.toLowerCase().includes(q.toLowerCase()) || l.url.toLowerCase().includes(q.toLowerCase()));
-  renderLinks(filtered);
+  const base = currentFolderId==='__all__' ? links : links.filter(l=>l.folderId===currentFolderId);
+  renderLinks(base.filter(l=>l.name.toLowerCase().includes(q.toLowerCase())||l.url.toLowerCase().includes(q.toLowerCase())));
 }
 
-// FOLDER MODAL
 function openFolderModal() {
   editingFolderId = null;
   document.getElementById('folderModalTitle').textContent = 'New Folder';
   document.getElementById('folderName').value = '';
-  selectedEmoji = '💄';
-  selectedColor = '#c4603a';
-  document.querySelectorAll('.emoji-opt').forEach(e => e.classList.toggle('selected', e.dataset.emoji === selectedEmoji));
-  document.querySelectorAll('.color-opt').forEach(c => c.classList.toggle('selected', c.dataset.color === selectedColor));
+  selectedEmoji = '💄'; selectedColor = '#c4603a';
+  document.querySelectorAll('.emoji-opt').forEach(e=>e.classList.toggle('selected',e.dataset.emoji===selectedEmoji));
+  document.querySelectorAll('.color-opt').forEach(c=>c.classList.toggle('selected',c.dataset.color===selectedColor));
   openModal('folderModal');
 }
 
 function editFolder(id) {
-  const folder = folders.find(f => f.id === id);
+  const f = folders.find(f=>f.id===id);
   editingFolderId = id;
   document.getElementById('folderModalTitle').textContent = 'Edit Folder';
-  document.getElementById('folderName').value = folder.name;
-  selectedEmoji = folder.icon;
-  selectedColor = folder.color;
-  document.querySelectorAll('.emoji-opt').forEach(e => e.classList.toggle('selected', e.dataset.emoji === selectedEmoji));
-  document.querySelectorAll('.color-opt').forEach(c => c.classList.toggle('selected', c.dataset.color === selectedColor));
+  document.getElementById('folderName').value = f.name;
+  selectedEmoji = f.icon; selectedColor = f.color;
+  document.querySelectorAll('.emoji-opt').forEach(e=>e.classList.toggle('selected',e.dataset.emoji===selectedEmoji));
+  document.querySelectorAll('.color-opt').forEach(c=>c.classList.toggle('selected',c.dataset.color===selectedColor));
   openModal('folderModal');
 }
 
@@ -1067,36 +448,32 @@ function saveFolder() {
   const name = document.getElementById('folderName').value.trim();
   if (!name) { showToast('Please enter a folder name'); return; }
   if (editingFolderId) {
-    const f = folders.find(f => f.id === editingFolderId);
-    f.name = name; f.icon = selectedEmoji; f.color = selectedColor;
+    const f = folders.find(f=>f.id===editingFolderId);
+    f.name=name; f.icon=selectedEmoji; f.color=selectedColor;
   } else {
-    folders.push({ id: uid(), name, icon: selectedEmoji, color: selectedColor });
+    folders.push({ id:uid(), name, icon:selectedEmoji, color:selectedColor });
   }
   save(); closeModal('folderModal'); render();
-  showToast(editingFolderId ? 'Folder updated' : 'Folder created');
+  showToast(editingFolderId?'Folder updated':'Folder created');
 }
 
 function deleteFolder(id) {
   if (!confirm('Delete this folder and all its links?')) return;
-  folders = folders.filter(f => f.id !== id);
-  links = links.filter(l => l.folderId !== id);
-  save(); render();
-  showToast('Folder deleted');
+  folders = folders.filter(f=>f.id!==id);
+  links = links.filter(l=>l.folderId!==id);
+  save(); render(); showToast('Folder deleted');
 }
 
 function selectEmoji(el) {
-  document.querySelectorAll('.emoji-opt').forEach(e => e.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedEmoji = el.dataset.emoji;
+  document.querySelectorAll('.emoji-opt').forEach(e=>e.classList.remove('selected'));
+  el.classList.add('selected'); selectedEmoji = el.dataset.emoji;
 }
 
 function selectColor(el) {
-  document.querySelectorAll('.color-opt').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedColor = el.dataset.color;
+  document.querySelectorAll('.color-opt').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected'); selectedColor = el.dataset.color;
 }
 
-// LINK MODAL
 function openLinkModal() {
   document.getElementById('linkName').value = '';
   document.getElementById('linkUrl').value = '';
@@ -1108,119 +485,36 @@ function openLinkModal() {
 function saveLink() {
   const name = document.getElementById('linkName').value.trim();
   const url = document.getElementById('linkUrl').value.trim();
-  if (!name || !url) { showToast('Please fill in name and URL'); return; }
-  const folderId = currentFolderId === '__all__' ? (folders[0]?.id || null) : currentFolderId;
-  links.push({
-    id: uid(),
-    folderId,
-    name,
-    url,
-    platform: document.getElementById('linkPlatform').value,
-    price: document.getElementById('linkPrice').value.trim()
-  });
+  if (!name||!url) { showToast('Please fill in name and URL'); return; }
+  const folderId = currentFolderId==='__all__' ? (folders[0]?.id||null) : currentFolderId;
+  links.push({ id:uid(), folderId, name, url, platform:document.getElementById('linkPlatform').value, price:document.getElementById('linkPrice').value.trim() });
   save(); closeModal('linkModal');
-  if (currentFolderId) renderLinks(currentFolderId === '__all__' ? links : links.filter(l => l.folderId === currentFolderId));
-  render();
-  showToast('Link added');
+  if (currentFolderId) renderLinks(currentFolderId==='__all__'?links:links.filter(l=>l.folderId===currentFolderId));
+  render(); showToast('Link added');
 }
 
 function deleteLink(id) {
-  links = links.filter(l => l.id !== id);
+  links = links.filter(l=>l.id!==id);
   save();
-  const base = currentFolderId === '__all__' ? links : links.filter(l => l.folderId === currentFolderId);
-  renderLinks(base);
-  render();
-  showToast('Link removed');
+  renderLinks(currentFolderId==='__all__'?links:links.filter(l=>l.folderId===currentFolderId));
+  render(); showToast('Link removed');
 }
 
 function copyLink(url) {
-  navigator.clipboard.writeText(url).then(() => showToast('Link copied!'));
+  navigator.clipboard.writeText(url).then(()=>showToast('Link copied!'));
 }
 
-// PUBLIC PAGE — full screen view
-function showPublicPage() {
-  document.getElementById('adminRoot').style.display = 'none';
-  document.getElementById('publicRoot').style.display = 'block';
-  renderPublicPage();
-  window.scrollTo(0, 0);
-}
-
-function hidePublicPage() {
-  document.getElementById('publicRoot').style.display = 'none';
-  document.getElementById('adminRoot').style.display = 'block';
-}
-
-function renderPublicPage() {
-  const el = document.getElementById('publicRoot');
-  const hasLinks = folders.some(f => links.filter(l => l.folderId === f.id).length > 0);
-  el.innerHTML = `
-    <div style="min-height:100vh;background:#faf7f2;font-family:'DM Sans',sans-serif;">
-      <div style="background:#fff;border-bottom:1px solid #e8e0d0;padding:0 20px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;">
-        <div style="font-family:'DM Serif Display',serif;font-size:18px;color:#1a1612;display:flex;align-items:center;gap:6px;">
-          <span style="width:7px;height:7px;background:#c4603a;border-radius:50%;display:inline-block;"></span>
-          LinkNest
-        </div>
-        <button onclick="hidePublicPage()" style="font-family:'DM Sans',sans-serif;font-size:12px;padding:6px 14px;border-radius:40px;border:1px solid #e8e0d0;background:transparent;color:#6b6158;cursor:pointer;">← Back to admin</button>
-      </div>
-      <div style="max-width:520px;margin:0 auto;padding:36px 20px 0;">
-        <div style="text-align:center;margin-bottom:32px;">
-          <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#c4603a,#e8845e);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:28px;">✨</div>
-          <div style="font-family:'DM Serif Display',serif;font-size:24px;color:#1a1612;margin-bottom:6px;">traditionalbebo</div>
-          <div style="font-size:13px;color:#a89e93;line-height:1.6;">Honest reviews · Affordable fashion & beauty finds<br>from Meesho, Nykaa & more</div>
-        </div>
-        ${!hasLinks ? `<div style="text-align:center;padding:40px 20px;color:#a89e93;font-size:14px;">No products added yet.</div>` :
-          folders.map(f => {
-            const folderLinks = links.filter(l => l.folderId === f.id);
-            if (!folderLinks.length) return '';
-            return `
-              <div style="margin-bottom:28px;">
-                <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-                  <div style="width:32px;height:32px;border-radius:8px;background:${f.color}22;display:flex;align-items:center;justify-content:center;font-size:16px;">${f.icon}</div>
-                  <div>
-                    <div style="font-size:14px;font-weight:600;color:#1a1612;">${f.name}</div>
-                    <div style="font-size:11px;color:#a89e93;">${folderLinks.length} product${folderLinks.length !== 1 ? 's' : ''}</div>
-                  </div>
-                </div>
-                ${folderLinks.map(l => `
-                  <a href="${l.url}" target="_blank"
-                     style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#fff;border:1px solid #e8e0d0;border-left:3px solid ${f.color};border-radius:12px;margin-bottom:8px;text-decoration:none;gap:12px;"
-                     onmouseover="this.style.boxShadow='0 4px 16px rgba(26,22,18,0.1)'"
-                     onmouseout="this.style.boxShadow='none'">
-                    <div style="display:flex;align-items:center;gap:10px;min-width:0;">
-                      <div style="width:36px;height:36px;border-radius:8px;background:${f.color}15;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;">${f.icon}</div>
-                      <div style="min-width:0;">
-                        <div style="font-size:13px;font-weight:500;color:#1a1612;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${l.name}</div>
-                        <div style="font-size:11px;color:#a89e93;margin-top:2px;">${getPlatformLabel(l.platform)}${l.price ? ' · ' + l.price : ''}</div>
-                      </div>
-                    </div>
-                    <div style="width:28px;height:28px;border-radius:50%;background:${f.color}15;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;color:${f.color};">→</div>
-                  </a>`).join('')}
-              </div>`;
-          }).join('')}
-        <div style="text-align:center;padding:24px 0 40px;border-top:1px solid #e8e0d0;margin-top:8px;">
-          <div style="font-size:12px;color:#a89e93;">Made with LinkNest · All links are affiliate links</div>
-        </div>
-      </div>
-    </div>`;
-}
-
-function copyPublicUrl() {
-  navigator.clipboard.writeText('https://traditionalbebo.github.io/LinkNest').then(() => showToast('Public URL copied!'));
-}
-
-// MODAL HELPERS
 function openModal(id) { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
-document.querySelectorAll('.modal-overlay').forEach(el => {
-  el.addEventListener('click', e => { if (e.target === el) closeModal(el.id); });
+document.querySelectorAll('.modal-overlay').forEach(el=>{
+  el.addEventListener('click', e=>{ if(e.target===el) closeModal(el.id); });
 });
 
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2200);
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2200);
 }
 
 render();
